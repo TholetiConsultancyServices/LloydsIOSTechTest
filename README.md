@@ -4,7 +4,7 @@
 
 - Developed the App using Xcode 12 and Swift 5.
 
-- No third party libraries are used.
+- Promise third party library is used.
 
 - Main focus on implementing right architecture, design patterns and performance of the App.
 
@@ -21,21 +21,3 @@
 - Used NSURLSession for network operations.
 
 - Used Swfit Codable for parsing JSON data.
-
-- Used Reachability  for network availability check.
-
-- Added refresh Data option
-
-- Added Image caching support using URLCache
-
-
-## Further Improvements
-
-The following are some of the improvements to the project that should be made given more time:
-
-- Eye-catching UI elements
-- Persist movies data to display in offline mode
--Display more movie details
-- More unit tests for a complete coverage
-- UI tests
-
