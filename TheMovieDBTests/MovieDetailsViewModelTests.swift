@@ -27,7 +27,6 @@ class MovieDetailsViewModelTests: XCTestCase {
     }
 
     func test_MovieImage_ReturnsUIImage() {
-
         // Given
         let expectation = self.expectation(description: "Movie Image")
 

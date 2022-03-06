@@ -84,6 +84,28 @@ class MovieListViewModelTests: XCTestCase {
         XCTAssertEqual(expectedDownloadError?.message, "Unable to load movies, please try again.")
     }
 
+    func test_FetchImage_ReturnsUIImage() {
+        // Given
+        let expectation = self.expectation(description: "Movie Image")
+
+        let imageData = TestUtils().loadImageData(filename: "clapboard")
+        service.fetchPosterImageReturnValue = imageData
+        let movie = Movie(id: 123, title: "title", posterPath: "posterPath", overview: "overview", releaseDate: Date())
+        let movieItem = MovieViewItem(movie)
+
+        var expetedImage: UIImage?
+        //When
+        _ = sut.fetchImage(for: movieItem)
+            .done { image in
+                expetedImage = image
+                expectation.fulfill()
+            }
+
+        //Then
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertNotNil(expetedImage)
+    }
+
     func test_DidSelect_CallsCoOrdinatorDelagateWithCorrectMovieModel() {
         // Given
         let movie = Movie(id: 123, title: "title", posterPath: "posterPath", overview: "overview", releaseDate: Date())
