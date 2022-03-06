@@ -69,10 +69,14 @@ class MovieListViewModel: MovieListViewModelType {
                     seal.fulfill(self.movieItems ?? [])
                 }
                 .catch { error in
-                    guard let code = (error as? URLError)?.code else { return }
-                    switch code {
-                    case URLError.notConnectedToInternet:
-                        seal.reject(DownloadError(message: "Internet seems to be offline, please check the internet connection."))
+                    switch error {
+                    case is URLError:
+                        guard let code = (error as? URLError)?.code else { return }
+                        if code == URLError.notConnectedToInternet {
+                            seal.reject(DownloadError(message: "Internet seems to be offline, please check the internet connection."))
+                        } else {
+                            seal.reject(DownloadError(message: "Unable to load movies, please try again."))
+                        }
                     default:
                         seal.reject(DownloadError(message: "Unable to load movies, please try again."))
                     }
