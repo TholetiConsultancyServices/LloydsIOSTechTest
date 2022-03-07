@@ -2,7 +2,7 @@
 
 ## Summary of implementation details:
 
--  This App is about showing movie list & movie details from open movie database using the public API https://api.themoviedb.org/3.
+-  This App is about showing movie list & movie details from open movie database using the public API https://api.themoviedb.org.
 
 - Developed the App using Xcode 12 and Swift 5.
 
