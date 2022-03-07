@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 
 protocol  MovieListCoordinatorDelegate: AnyObject {
-    func didSelect(movie: Movie)
+    func showMovieDetails(movie: Movie)
 }
 
-class MovieListCoordinator: CoordinatorType {
+final class MovieListCoordinator: CoordinatorType {
     var parentCoordinator: CoordinatorType?
     var childCoordinators: [CoordinatorType] = []
 
@@ -40,7 +40,7 @@ class MovieListCoordinator: CoordinatorType {
 }
 
 extension MovieListCoordinator: MovieListCoordinatorDelegate {
-    func didSelect(movie: Movie) {
+    func showMovieDetails(movie: Movie) {
         let coordinator = MovieDetailsCoordinator(movie: movie, navigationController: navigationController)
         coordinator.parentCoordinator = self
         childCoordinators.append(coordinator)

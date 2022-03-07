@@ -14,7 +14,6 @@ import PromiseKit
 class MovieDetailsViewModelTests: XCTestCase {
 
     private var service: MockMovieService!
-    private var delegate: MockMovieListCoordinatorDelegate!
 
     private var sut: MovieDetailsViewModel!
 
@@ -35,6 +34,7 @@ class MovieDetailsViewModelTests: XCTestCase {
         let movie = Movie(id: 123, title: "title", posterPath: "posterPath", overview: "overview", releaseDate: Date())
 
         var expetedImage: UIImage?
+
         //When
         sut = MovieDetailsViewModel(movie: movie, moviesService: service)
         _ = sut.fetchMovieImage()

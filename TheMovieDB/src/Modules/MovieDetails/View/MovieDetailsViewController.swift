@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import PromiseKit
 
-class MovieDetailsViewController: UIViewController {
+final class MovieDetailsViewController: UIViewController {
     
     @IBOutlet private weak var posterImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!

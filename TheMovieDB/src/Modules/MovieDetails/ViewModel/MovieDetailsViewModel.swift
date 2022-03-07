@@ -37,8 +37,6 @@ struct MovieDetailsViewModel: MovieDetailsViewModelType {
 
     func fetchMovieImage() -> Promise<UIImage> {
         return moviesService.fetchPosterImage(path: movie.posterPath)
-            .compactMap { data in
-                UIImage(data: data)
-            }
+            .compactMap { UIImage(data: $0) }
     }
 }

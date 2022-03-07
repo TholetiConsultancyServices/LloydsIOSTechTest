@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AppCoordinator: CoordinatorType {
+final class AppCoordinator: CoordinatorType {
     var parentCoordinator: CoordinatorType?
     var childCoordinators: [CoordinatorType] = []
 

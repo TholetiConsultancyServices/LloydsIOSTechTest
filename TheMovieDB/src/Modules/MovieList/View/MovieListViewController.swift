@@ -9,8 +9,11 @@
 import UIKit
 
 
-class MovieListViewController: UIViewController {
+final class MovieListViewController: UIViewController {
     
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+
     var viewModel: MovieListViewModel? {
         didSet {
             if isViewLoaded {
@@ -18,9 +21,6 @@ class MovieListViewController: UIViewController {
             }
         }
     }
-    
-    @IBOutlet private weak var collectionView: UICollectionView!
-    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 
     private var movieItems: [MovieViewItem] = []
 
@@ -86,9 +86,10 @@ extension MovieListViewController: UICollectionViewDelegateFlowLayout {
 extension MovieListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let movieCell = cell as? MovieCollectionViewCell, let movieItems = viewModel?.movieItems else {
+        guard let movieCell = cell as? MovieCollectionViewCell else {
             return
         }
+
         let item = movieItems[indexPath.row]
         movieCell.configureContent(item)
 

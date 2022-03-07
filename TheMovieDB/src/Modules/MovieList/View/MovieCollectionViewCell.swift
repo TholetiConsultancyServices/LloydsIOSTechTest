@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class MovieCollectionViewCell: UICollectionViewCell {
+final class MovieCollectionViewCell: UICollectionViewCell {
     
     static let nib = UINib(nibName: String(describing: MovieCollectionViewCell.self), bundle: nil)
     

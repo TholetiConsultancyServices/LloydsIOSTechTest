@@ -54,7 +54,7 @@ class MovieListViewModelTests: XCTestCase {
         //Then
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertEqual(movieItems?.count, 20)
-        guard let movieItem = sut.movieItems?[0] else {
+        guard let movieItem = movieItems?[0] else {
             XCTFail()
             return
         }
@@ -81,7 +81,7 @@ class MovieListViewModelTests: XCTestCase {
 
         //Then
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertEqual(expectedDownloadError?.message, "Unable to load movies, please try again.")
+        XCTAssertEqual(expectedDownloadError?.message, DownloadError.generic.message)
     }
 
     func test_FetchImage_ReturnsUIImage() {
@@ -115,13 +115,13 @@ class MovieListViewModelTests: XCTestCase {
         sut.didSelect(item: movieViewItem)
 
         //Then
-        XCTAssertTrue(delegate.didSelectCalled)
+        XCTAssertTrue(delegate.showMovieDetailsCalled)
     }
 }
 
 class MockMovieListCoordinatorDelegate: MovieListCoordinatorDelegate {
-    var didSelectCalled = false
-    func didSelect(movie: Movie) {
-        didSelectCalled = true
+    var showMovieDetailsCalled = false
+    func showMovieDetails(movie: Movie) {
+        showMovieDetailsCalled = true
     }
 }

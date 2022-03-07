@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MovieDetailsCoordinator: CoordinatorType {
+final class MovieDetailsCoordinator: CoordinatorType {
     var parentCoordinator: CoordinatorType?
     var childCoordinators: [CoordinatorType] = []
 

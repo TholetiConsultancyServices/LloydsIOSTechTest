@@ -9,12 +9,22 @@
 import Foundation
 import PromiseKit
 
-struct DownloadError: Error {
-    let message: String
+enum DownloadError: Error {
+    case offline
+    case generic
+
+    var message: String {
+        switch self {
+        case .offline:
+            return "Internet seems to be offline, please check the internet connection."
+        default:
+            return "Unable to load movies, please try again."
+        }
+    }
 }
 
 struct MovieViewItem {
-    private(set) var movie: Movie
+    let movie: Movie
     let title: String
     let imageUrl: String
     let subTitle: String
@@ -36,11 +46,9 @@ protocol MovieListViewModelType {
 }
 
 
-class MovieListViewModel: MovieListViewModelType {
+struct MovieListViewModel: MovieListViewModelType {
     private let service: MovieServiceType
-    var movieItems: [MovieViewItem]?
     private weak var delegate: MovieListCoordinatorDelegate?
-
 
     init(service: MovieServiceType, delegate: MovieListCoordinatorDelegate? = nil) {
         self.service = service
@@ -53,7 +61,7 @@ class MovieListViewModel: MovieListViewModelType {
 
 
     func didSelect( item: MovieViewItem) {
-        delegate?.didSelect(movie: item.movie)
+        delegate?.showMovieDetails(movie: item.movie)
     }
 
     func fetchImage(for item: MovieViewItem) -> Promise<UIImage> {
@@ -64,21 +72,21 @@ class MovieListViewModel: MovieListViewModelType {
     func loadMovies() -> Promise<[MovieViewItem]> {
         return Promise { seal in
             service.fetchNowPlayingMovies()
-                .done(on: DispatchQueue.main) { list in
-                     self.movieItems = list.movies?.compactMap( { MovieViewItem($0) })
-                    seal.fulfill(self.movieItems ?? [])
+                .done(on: DispatchQueue.main) { movieList in
+                    let movieItems = movieList.movies?.compactMap( { MovieViewItem($0) })
+                    seal.fulfill(movieItems ?? [])
                 }
                 .catch { error in
                     switch error {
                     case is URLError:
                         guard let code = (error as? URLError)?.code else { return }
                         if code == URLError.notConnectedToInternet {
-                            seal.reject(DownloadError(message: "Internet seems to be offline, please check the internet connection."))
+                            seal.reject(DownloadError.offline)
                         } else {
-                            seal.reject(DownloadError(message: "Unable to load movies, please try again."))
+                            seal.reject(DownloadError.generic)
                         }
                     default:
-                        seal.reject(DownloadError(message: "Unable to load movies, please try again."))
+                        seal.reject(DownloadError.generic)
                     }
                 }
         }
