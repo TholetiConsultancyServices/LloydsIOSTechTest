@@ -10,9 +10,6 @@
 #endif
 #endif
 
-#import "CLGeocoder+AnyPromise.h"
-#import "CLLocationManager+AnyPromise.h"
-#import "PMKCoreLocation.h"
 #import "fwd.h"
 #import "AnyPromise.h"
 #import "PromiseKit.h"
@@ -20,9 +17,6 @@
 #import "NSTask+AnyPromise.h"
 #import "NSNotificationCenter+AnyPromise.h"
 #import "PMKFoundation.h"
-#import "MKDirections+AnyPromise.h"
-#import "MKMapSnapshotter+AnyPromise.h"
-#import "PMKMapKit.h"
 #import "PMKUIKit.h"
 #import "UIView+AnyPromise.h"
 #import "UIViewController+AnyPromise.h"

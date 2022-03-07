@@ -7,15 +7,11 @@ target 'TheMovieDB' do
 
   # Pods for TheMovieDB
   pod "PromiseKit", "~> 6.0"
-  pod "PromiseKit/MapKit"
-  pod "PromiseKit/CoreLocation"
 
   target 'TheMovieDBTests' do
     inherit! :search_paths
     # Pods for testing
   pod "PromiseKit", "~> 6.0"
-  pod "PromiseKit/MapKit"
-  pod "PromiseKit/CoreLocation"
   end
 
   target 'TheMovieDBUITests' do
